@@ -1,0 +1,45 @@
+
+<% breadcrumb :ration, @ration %>
+
+<div class="page-header">
+  <h3>配货</h3>
+</div>
+
+<%= simple_nested_form_for @ration, :url => create_ration_order_path(@order), :html => {:class => "form-horizontal"}, :wrapper => false do |f| %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">配货零件列表</div>
+    <table id="edit-sub_products-list" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>产品名称</th>
+          <th>产品单位</th>
+          <th>数量</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="ration_records">
+
+        <%= f.simple_fields_for :ration_records, :wrapper => false do |u| %>
+          <tr class="fields hide-control-label">
+            <td><%= u.input :product_id, :collection => @order.not_ration_products, :label_method => :name, :value_method => :id, :input_html => {:class => 'sub_product_product_id'} %></td>
+            <td><%= u.input :unit_id, :collection => u.object.product.present? ? u.object.product.units : [], :input_html => {:class => 'sub_product_unit_id'} %></td>
+            <td><%= u.input :product_count %></td>
+            <td><%= u.link_to_remove "删除", :class => "btn btn-danger" %></td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <%= f.link_to_add "添加配货零件", :ration_records, :data => { :target => "#ration_records" }, :class => "btn btn-success" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, :value => "保存" %>
+    </div>
+  </div>
+
+<% end %>

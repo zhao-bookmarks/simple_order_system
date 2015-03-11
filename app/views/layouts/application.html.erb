@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>订单系统</title>
+  <%= stylesheet_link_tag    "application", "custom", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <% if current_user %>
+  <script type="text/javascript">
+    function update_count(){
+      $.get("<%= update_count_notifications_path %>", function(count){
+        $("#notification_count").text(count);
+      });
+    }
+
+    $(document).ready(function(){
+      setInterval("update_count()", 1000 * 60);
+    });
+  </script>
+  <% end %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <%= render "layouts/header" %>
+  
+  <div class="container">
+
+    <%= breadcrumbs :style => :bootstrap %>
+
+    <%= yield %>
+  </div>
+
+</body>
+</html>

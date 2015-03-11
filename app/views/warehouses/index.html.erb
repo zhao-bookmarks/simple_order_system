@@ -1,0 +1,75 @@
+
+<% breadcrumb :warehouses %>
+
+<div class="page-header">
+  <h3>库存列表</h3>
+</div>
+
+<div class="well well-sm">
+  <%= search_form_for @q, :url => warehouses_path, :class => "form-inline" do |f| %>
+
+    <div class="form-group">
+      <%= f.label :id_eq, "ID" %>
+      <%= f.search_field :id_eq, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name_cont, "产品名称" %>
+      <%= f.search_field :name_cont, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :is_low_eq, "预警" %>
+      <%= f.select :is_low_eq, [["是", "true"], ["否", "false"]], {:include_blank => true}, {:class => "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :is_out_of_stock_eq, "缺货" %>
+      <%= f.select :is_out_of_stock_eq, [["是", "true"], ["否", "false"]], {:include_blank => true}, {:class => "form-control"} %>
+    </div>
+
+    <%= f.submit "搜索", :class => "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div>
+  <table class="table table-hover table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th><%= sort_link(@q, :id, "ID") %></th> 
+        <th><%= sort_link(@q, :name, "产品名称") %></th>
+        <th>图像</th>
+        <th>单位</th>
+        <th>库存数量</th>
+        <th>预警数量</th>
+        <th>预警</th>
+        <th>缺货</th>
+        <th>需求汇总</th>
+        <th>
+          <%= link_to "进货", new_purchase_path, :class => "btn btn-success" %>
+          <%= link_to "进货记录", purchases_path, :class => "btn btn-info" %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |p| %>
+        <tr>
+          <td><%= p.id %></td>
+          <td><%= link_to p.name, product_path(p) %></td>
+          <td><%= image_tag p.photo_url if p.photo %></td>
+          <td><%= p.base_unit.name if p.base_unit %></td>
+          <td><%= p.store %></td>
+          <td><%= p.alert_count %></td>
+          <td><%= show_low_status p %></td>
+          <td><%= show_out_of_stock_status p %></td>
+          <td><%= show_total p %></td>
+          <td>
+            <%= link_to "修正库存数量", edit_warehouse_path(p), :class => "btn btn-warning btn-xs" %>
+            <%= link_to "设置库存预警", edit_alert_count_warehouse_path(p), :class => "btn btn-primary btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @products %>
+</div>

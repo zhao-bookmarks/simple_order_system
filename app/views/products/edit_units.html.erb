@@ -1,0 +1,46 @@
+
+<% breadcrumb :edit_product, @product %>
+
+<div class="page-header">
+  <h3>编辑产品单位(<%= @product.name %>)</h3>
+</div>
+
+<%= simple_nested_form_for @product, :html => {:class => "form-horizontal"}, :wrapper => false do |f| %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">产品单位列表</div>
+    <table id="edit-units-list" class="table table-hover table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>单位名称</th>
+          <th>默认单位</th>
+          <th>基本单位</th>
+          <th>换算率</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="units">
+
+        <%= f.simple_fields_for :units, :wrapper => false do |u| %>
+          <tr class="fields hide-control-label">
+            <td><%= u.input :name %></td>
+            <td><%= u.input :is_default, :input_html => {:class => "unit_is_default"} %></td>
+            <td><%= u.input :is_base, :input_html => {:class => "unit_is_base"} %></td>
+            <td><%= u.input :rate, :input_html => {:class => "unit_rate"} %></td>
+            <td><%= u.link_to_remove "删除", :class => "btn btn-danger" %></td>
+          </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <%= f.link_to_add "添加新单位", :units, :data => { :target => "#units" }, :class => "btn btn-success" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, :value => "保存" %>
+    </div>
+  </div>
+<% end %>

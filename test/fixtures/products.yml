@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  name: MyString
+  is_minimum: false
+  is_last: false
+
+two:
+  number: MyString
+  name: MyString
+  is_minimum: false
+  is_last: false

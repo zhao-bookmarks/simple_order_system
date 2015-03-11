@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_id: 1
+  product_id: 1
+  unit_id: 1
+  product_count: 9.99
+  delivery_start: 2014-10-16 10:31:59
+  delivery_end: 2014-10-16 10:31:59
+  remark: MyText
+
+two:
+  order_id: 1
+  product_id: 1
+  unit_id: 1
+  product_count: 9.99
+  delivery_start: 2014-10-16 10:31:59
+  delivery_end: 2014-10-16 10:31:59
+  remark: MyText

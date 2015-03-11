@@ -1,0 +1,71 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container container-fluid">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">订单系统</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <ul class="nav navbar-nav navbar-left">
+        <% if can? :manager, User %>
+          <li><%= link_to "用户", users_path %></li>
+        <% end %>
+        <% if can? :manager, Product %>
+          <li><%= link_to "产品", products_path %></li>
+        <% end %>
+        <% if can? :read, Product %>
+          <li><%= link_to "库存", warehouses_path %></li>
+        <% end %>
+        <% if can? :read, Order %>
+          <li><%= link_to "订单", orders_path %></li>
+        <% end %>
+          <li></li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <% if current_user %>
+          <li>
+            <a href="<%= notifications_path %>">
+              通知
+              <span class="badge alert-danger" id="notification_count">
+                <%= current_user.unread_notifications_count %>
+              </span>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+              <%= current_user.real_name %>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                <a href="<%= user_path(current_user) %>">
+                  <span class="glyphicon glyphicon-user"></span>
+                  个人信息
+                </a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to session_path(current_user), :method => :delete do %>
+                  <span class="glyphicon glyphicon-off"></span> 退出
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "登录", new_session_path %></li>
+        <% end %>
+      </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,84 @@
+
+'zh-CN':
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            login:
+              blank: "不能为空！"
+            password:
+              blank: "不能为空！"
+              too_short: "最少为6个字符！"
+            password_confirmation:
+              confirmation: "两次输入不匹配！"
+        product:
+          attributes:
+            name:
+              blank: "不能为空！"
+            store:
+              blank: "不能为空！"
+        unit:
+          attributes:
+            name:
+              blank: "不能为空！"
+        sub_product:
+          attributes:
+            product_id:
+              blank: "不能为空！"
+            unit_id:
+              blank: "不能为空！"
+            product_count:
+              blank: "不能为空！"
+        purchase_record:
+          attributes:
+            product_id:
+              blank: "不能为空！"
+            unit_id:
+              blank: "不能为空！"
+        order:
+          attributes:
+            number:
+              blank: "不能为空！"
+        line_item:
+          attributes:
+            product_id:
+              blank: "不能为空！"
+            unit_id:
+              blank: "不能为空！"
+  views:
+    pagination:
+      first: "&laquo; 首页"
+      last: "尾页 &raquo;"
+      previous: "&lsaquo; 上一页"
+      next: "下一页 &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No %{entry_name} found"
+          one: "Displaying <b>1</b> %{entry_name}"
+          other: "Displaying <b>all %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total"
+  user:
+    roles:
+      super_admin: "超级管理员"
+      admin: "管理员"
+      warehouse: "仓库员"
+      order: "订单员"
+  order:
+    status:
+      begin: "活跃"
+      end: "结束"
+      return: "返单"
+      close: "关闭"
+    element_status:
+      not_ration: "尚未配货"
+      rationing: "配货中"
+      rationed: "完成配货"
+    send_status:
+      not_send: "尚未发货"
+      sending: "发货中"
+      sent: "完成发货"

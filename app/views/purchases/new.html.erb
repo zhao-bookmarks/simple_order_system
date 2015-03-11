@@ -1,0 +1,45 @@
+
+<h1>进货</h1>
+
+<%= simple_nested_form_for @purchase, :html => {:class => "form-horizontal"}, :wrapper => false do |f| %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">进货商品列表</div>
+    <div class="panel-body">
+
+      <table id="edit-sub_products-list" class="table">
+        <thead>
+          <tr>
+            <th>产品名称</th>
+            <th>产品单位</th>
+            <th>数量</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="purchase_records">
+
+          <%= f.simple_fields_for :purchase_records, :wrapper => false do |u| %>
+            <tr class="fields hide-control-label">
+              <td><%= u.input :product_id, :collection => @products, :label_method => :name, :value_method => :id, :input_html => {:class => 'sub_product_product_id'} %></td>
+              <td><%= u.input :unit_id, :collection => u.object.product.present? ? u.object.product.units : [], :input_html => {:class => 'sub_product_unit_id'} %></td>
+              <td><%= u.input :product_count %></td>
+              <td><%= u.link_to_remove "删除", :class => "btn btn-danger" %></td>
+            </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+
+    </div>
+    <div class="panel-footer">
+      <%= f.link_to_add "添加新单位", :purchase_records, :data => { :target => "#purchase_records" }, :class => "btn btn-success" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, :value => "保存" %>
+    </div>
+  </div>
+
+<% end %>

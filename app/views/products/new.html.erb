@@ -1,0 +1,17 @@
+
+<% breadcrumb :product, @product %>
+
+<div class="page-header">
+  <h3>新建产品</h3>
+</div>
+
+<%= simple_form_for @product, :html => {:class => "form-horizontal"} do |f| %>
+  
+  <%= render "products/product_info_form", :f => f %>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, :value => "保存" %>
+    </div>
+  </div>
+<% end %>

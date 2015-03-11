@@ -1,0 +1,32 @@
+
+<% breadcrumb :rations %>
+
+<div class="page-header">
+  <h3>配货记录</h3>
+</div>
+
+<% @rations.each do |ration| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= short_date_time ration.created_at %> / <%= ration.user.real_name %>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>产品名称</th>
+          <th>单位</th>
+          <th>数量</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% ration.ration_records.each do |record| %>
+          <tr>
+            <td><%= link_to record.product.name, product_path(record.product) %></td>
+            <td><%= record.unit.name %></td>
+            <td><%= record.product_count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

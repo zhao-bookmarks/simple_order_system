@@ -1,0 +1,92 @@
+
+<% breadcrumb :order, @order %>
+
+<div class="page-header">
+  <h3>订单详情</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    订单编号: <%= @order.number %>
+  </div>
+  <div class="col-md-4 col-md-offset-4 text-right">
+    日期: <%= short_date(@order.created_at) %> / <%= @order.user.real_name %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">订单状态: <%= translate_order_status_name @order.status %></div>
+  <div class="col-md-2">配货状态: <%= translate_order_element_status_name @order.element_status %></div>
+  <div class="col-md-2">发货状态: <%= translate_order_send_status_name @order.send_status %></div>
+</div>
+
+<div class="padding-top-10">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>货号</th>
+        <th>产品名称</th>
+        <th>数量</th>
+        <th>盒</th>
+        <th>箱</th>
+        <th>交货期</th>
+        <th>备注</th>
+        <th>
+          <%= link_to "发货", new_shipment_order_path(@order), :class => "btn btn-success" if not @order.sent? %>
+          <%= link_to "发货纪录", shipments_order_path(@order), :class => "btn btn-info" if not @order.not_send? %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.line_items.each do |line_item| %>
+        <tr>
+          <td><%= line_item.product.core_product.number %></td>
+          <td><%= line_item.product.core_product.name %></td>
+          <td><%= line_item_product_count line_item %></td>
+          <td></td>
+          <td></td>
+          <td><%= line_item_delivery_date line_item %></td>
+          <td><%= line_item.remark %></td>
+          <td><%= show_product_send_status_for_order(@order.id, line_item.product_id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="page-header">
+  <h3>库存状况 <%= show_is_ready_for_order(@order) %></h3>
+</div>
+
+<div class="padding-top-10">
+  <table class="table table-hover table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>产品名称</th>
+          <th>库存数量</th>
+          <th>需求数量</th>
+          <th>配货数量</th>
+          <th>未配货数量</th> 
+          <th>
+            <%= link_to "配货", new_ration_order_path(@order), :class => "btn btn-success" if @order.element_status_id < 2 %>
+            <%= link_to "配货记录", rations_order_path(@order), :class => "btn btn-info" if @order.element_status_id > 0 %>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.check_need_count_elements.each do |product_id, need_count| %>
+          <% p = Product.find(product_id) %>
+          <% rationed_count = product_rationed_count_for_order(@order, p) %>
+          <% not_ration_count = product_not_ration_count_for_order(@order, p) %>
+          <tr>
+            <td><%= link_to p.name, product_path(p) %></td>
+            <td><%= show_product_count(p, p.store) %></td>
+            <td><%= show_product_count(p, need_count.to_f) %></td>
+            <td><%= show_product_count(p, rationed_count) %></td>
+            <td><%= show_product_count(p, not_ration_count) %></td>
+            <td><%= show_product_status(p, p.store - not_ration_count) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div>

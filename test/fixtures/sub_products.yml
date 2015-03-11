@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  parent_id: 1
+  product_id: 1
+  unit_id: 1
+  product_count: 9.99
+
+two:
+  parent_id: 1
+  product_id: 1
+  unit_id: 1
+  product_count: 9.99

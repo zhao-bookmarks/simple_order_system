@@ -1,0 +1,78 @@
+
+<% breadcrumb :orders %>
+
+<div class="page-header">
+  <h3>订单列表</h3>
+</div>
+
+<div class="well well-sm">
+  <%= search_form_for @q, :class => "form-inline" do |f| %>
+
+    <div class="form-group">
+      <%= f.label :id_eq, "ID" %>
+      <%= f.search_field :id_eq, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :number_cont, "订单号" %>
+      <%= f.search_field :number_cont, :class => "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :is_ready_eq, "零件缺货" %>
+      <%= f.select :is_ready_eq, [["是", "false"], ["否", "true"]], {:include_blank => true}, {:class => "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :element_status_id_eq, "配货" %>
+      <%= f.select :element_status_id_eq, order_element_status_array, {:include_blank => true}, {:class => "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :send_status_id_eq, "交货" %>
+      <%= f.select :send_status_id_eq, order_send_status_array, {:include_blank => true}, {:class => "form-control"} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :status_id_eq, "订单状态" %>
+      <%= f.select :status_id_eq, order_status_array, {:include_blank => true}, {:class => "form-control"} %>
+    </div>
+
+    <%= f.submit "搜索", :class => "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div>
+  <table class="table table-hover table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th><%= sort_link(@q, :id, "ID") %></th>
+        <th><%= sort_link(@q, :number, "订单号") %></th>
+        <th><%= sort_link(@q, :created_at, "创建日期") %></th>
+        <th><%= sort_link(@q, :is_ready, "零件缺货") %></th>
+        <th><%= sort_link(@q, :element_status_id, "零件配给") %></th>
+        <th><%= sort_link(@q, :send_status_id, "成品交货") %></th>
+        <th><%= sort_link(@q, :status_id, "订单状态") %></th>
+        <th><%= link_to "新建订单", new_order_path, :class => "btn btn-success" %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |o| %>
+        <tr>
+          <td><%= o.id %></td>
+          <td><%= link_to o.number, order_path(o) %></td>
+          <td><%= short_date o.created_at %></td>
+          <td><%= show_is_ready_for_order(o) %></td>
+          <td><%= translate_order_element_status_name o.element_status %></td>
+          <td><%= translate_order_send_status_name o.send_status %></td>
+          <td><%= translate_order_status_name o.status %></td>
+          <td>
+            <%#= link_to "详细信息", product_path(p), :class => "btn btn-primary" %>
+            <%#= link_to "删除", product_path(p), :confirm => "确定要删除？", :method => :delete, :class => "btn btn-danger btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @orders %>
+</div>

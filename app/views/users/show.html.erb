@@ -1,0 +1,19 @@
+
+<% breadcrumb :user, @user %>
+
+<div class="page-header">
+  <h3>用户信息(<%= @user.login %>)</h3>
+</div>
+
+<div>
+  <table class="table">
+    <tr>
+      <td>登录名</td>
+      <td><%= @user.login %></td>
+    </tr>
+    <tr>
+      <td>昵称</td>
+      <td><%= @user.name %></td>
+    </tr>
+  </table>
+</div>

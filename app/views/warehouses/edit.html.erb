@@ -1,0 +1,17 @@
+
+<% breadcrumb :warehouse, @product %>
+
+<div class="page-header">
+  <h3>修正库存</h3>
+</div>
+
+<%= simple_form_for @product, :url => warehouse_path(@product), :html => {:class => "form-horizontal"} do |f| %>
+  <%= f.input :store %>
+  <%= f.input :warehouse_log_remark, :as => :text %>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, :value => "保存" %>
+    </div>
+  </div>
+<% end %>

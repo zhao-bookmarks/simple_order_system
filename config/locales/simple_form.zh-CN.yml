@@ -1,0 +1,89 @@
+'zh-CN':
+  simple_form:
+    "yes": '是'
+    "no": '否'
+    required:
+      text: '必填'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "以下内容有错误："
+
+    labels:
+      defaults:
+        alert_count: '库存预警'
+      user:
+        new:
+          login: '登录名'
+          name: '昵称'
+          password: '密码'
+          password_confirmation: '确认密码'
+        edit:
+          login: '登录名'
+          name: '昵称'
+          password: '密码'
+          password_confirmation: '确认密码'
+      session:
+        new:
+          login: '登录名'
+          password: '密码'
+      product:
+        new:
+          number: '货号'
+          name: '名称'
+          is_minimum: '基础零件'
+          is_last: '最终产品'
+          is_core: '核心产品'
+          store: '库存数量'
+          alert_count: '库存预警'
+          photo: '产品图片'
+          warehouse_log_remark: '备注'
+        edit:
+          number: '货号'
+          name: '名称'
+          is_minimum: '基础零件'
+          is_last: '最终产品'
+          is_core: '核心产品'
+          store: '库存数量'
+          alert_count: '库存预警'
+          photo: '产品图片'
+          warehouse_log_remark: '备注'
+        units:
+          name: '名称'
+          is_default: '默认单位'
+          is_base: '基础单位'
+          rate: '换算率'
+      unit:
+        new:
+          name: '名称'
+          is_default: '默认单位'
+          is_base: '基础单位'
+          rate: '换算率'
+        edit:
+          name: '名称'
+          is_default: '默认单位'
+          is_base: '基础单位'
+          rate: '换算率'
+      order:
+        new:
+          number: '订单号'
+          remark: '备注'
+        edit:
+          number: '订单号'
+          remark: '备注'
+    # Labels and hints examples
+    # labels:
+    #   defaults:
+    #     password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+

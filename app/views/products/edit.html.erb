@@ -1,0 +1,22 @@
+
+<% breadcrumb :edit_product, @product %>
+
+<div class="page-header">
+  <h3>编辑产品</h3>
+</div>
+
+<%= simple_nested_form_for @product, :html => {:class => "form-horizontal"}, :wrapper => false do |f| %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">产品信息</div>
+    <div class="panel-body">
+      <%= render "products/product_info_form", :f => f %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, :value => "保存" %>
+    </div>
+  </div>
+<% end %>

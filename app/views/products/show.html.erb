@@ -1,0 +1,107 @@
+
+<% breadcrumb :product, @product %>
+
+<div class="page-header">
+  <h3>产品信息</h3>
+</div>
+
+<div class="">
+  <div class="panel panel-default">
+    <div class="panel-heading">基本信息</div>
+    <table class="table table-hover table-condensed table-bordered">
+      <tr>
+        <td>ID</td>
+        <td><%= @product.id %></td>
+      </tr>
+      <tr>
+        <td>货号</td>
+        <td><%= @product.number %></td>
+      </tr>
+      <tr>
+        <td>名称</td>
+        <td><%= @product.name %></td>
+      </tr>
+      <tr>
+        <td>图片</td>
+        <td><%= image_tag @product.photo_url if @product.photo.present? %></td>
+      </tr>
+      <tr>
+        <td>基础零件</td>
+        <td><%= show_boolean_with_text @product.is_minimum %></td>
+      </tr>
+      <tr>
+        <td>最终产品</td>
+        <td><%= show_boolean_with_text @product.is_last %></td>
+      </tr>
+      <tr>
+        <td>核心产品</td>
+        <td><%= show_boolean_with_text @product.is_core %></td>
+      </tr>
+    </table>
+    <div class="panel-footer">
+      <%= link_to "编辑", edit_product_path(@product), :class => "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+
+<div class="">
+  <div class="panel panel-default">
+    <div class="panel-heading">计量单位</div>
+    <table class="table table-hover table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>单位名称</th>
+          <th>默认单位</th>
+          <th>基本单位</th>
+          <th>换算率</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @product.units.each_with_index do |u, i| %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= u.name %></td>
+          <td><%= show_boolean_with_checkbox_for_yes(u.is_default) %></td>
+          <td><%= show_boolean_with_checkbox_for_yes(u.is_base) %></td>
+          <td><%= u.rate %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <%= link_to "编辑", edit_units_product_path(@product), :class => "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+
+<% if not @product.is_minimum %>
+<div class="">
+  <div class="panel panel-default">
+    <div class="panel-heading">组件信息</div>
+    <table class="table table-hover table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>产品名称</th>
+          <th>产品单位</th>
+          <th>数量</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @product.sub_products.each_with_index do |s, i| %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= link_to s.product.name, product_path(s.product) %></td>
+          <td><%= s.unit.name %></td>
+          <td><%= s.product_count %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+      <%= link_to "编辑", edit_sub_products_product_path(@product), :class => "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,33 @@
+
+/* bootstrap */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* all */
+
+.text-right {
+  text-align: right;
+}
+
+.padding-top-10 {
+  padding-top: 10px;
+}
+
+
+/* product units edit page */
+
+.hide-control-label .control-label {
+  display: none;
+}
+
+.hide-control-label .boolean {
+  text-align: center;
+}
+
+select {
+  min-width: 50px;
+}
+
+input[type=date] {
+  min-width: 160px;
+}

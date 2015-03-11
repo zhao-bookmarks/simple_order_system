@@ -1,0 +1,16 @@
+
+<% breadcrumb :warehouse, @product %>
+
+<div class="page-header">
+  <h3>设置库存预警</h3>
+</div>
+
+<%= simple_form_for @product, :url => update_alert_count_warehouse_path(@product), :html => {:class => "form-horizontal"} do |f| %>
+  <%= f.input :alert_count %>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.button :submit, :value => "保存" %>
+    </div>
+  </div>
+<% end %>
